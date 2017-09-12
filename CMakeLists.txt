@@ -279,7 +279,7 @@ set(_INSTALL_DESTINATIONS
 ###
 ### Library
 ###
-add_library(yaml-cpp ${library_sources})
+add_library(yaml-cpp OBJECT ${library_sources})
 set_target_properties(yaml-cpp PROPERTIES
   COMPILE_FLAGS "${yaml_c_flags} ${yaml_cxx_flags}"
 )
@@ -308,17 +308,17 @@ if(MSVC)
 	endif()
 endif()
 
-install(TARGETS yaml-cpp EXPORT yaml-cpp-targets ${_INSTALL_DESTINATIONS})
-install(
-	DIRECTORY ${header_directory}
-	DESTINATION ${INCLUDE_INSTALL_DIR}
-	FILES_MATCHING PATTERN "*.h"
-)
+# install(TARGETS yaml-cpp EXPORT yaml-cpp-targets ${_INSTALL_DESTINATIONS})
+# install(
+# 	DIRECTORY ${header_directory}
+# 	DESTINATION ${INCLUDE_INSTALL_DIR}
+# 	FILES_MATCHING PATTERN "*.h"
+# )
 
-export(
-    TARGETS yaml-cpp
-    FILE "${PROJECT_BINARY_DIR}/yaml-cpp-targets.cmake")
-export(PACKAGE yaml-cpp)
+# export(
+#     TARGETS yaml-cpp
+#     FILE "${PROJECT_BINARY_DIR}/yaml-cpp-targets.cmake")
+# export(PACKAGE yaml-cpp)
 set(EXPORT_TARGETS yaml-cpp CACHE INTERNAL "export targets")
 
 set(CONFIG_INCLUDE_DIRS "${YAML_CPP_SOURCE_DIR}/include")
@@ -339,11 +339,11 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/yaml-cpp-config.cmake.in
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/yaml-cpp-config-version.cmake.in
 	"${PROJECT_BINARY_DIR}/yaml-cpp-config-version.cmake" @ONLY)
 
-install(FILES
-	"${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/yaml-cpp-config.cmake"
-	"${PROJECT_BINARY_DIR}/yaml-cpp-config-version.cmake"
-	DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
-install(EXPORT yaml-cpp-targets DESTINATION ${INSTALL_CMAKE_DIR})
+# install(FILES
+# 	"${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/yaml-cpp-config.cmake"
+# 	"${PROJECT_BINARY_DIR}/yaml-cpp-config-version.cmake"
+# 	DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+# install(EXPORT yaml-cpp-targets DESTINATION ${INSTALL_CMAKE_DIR})
 
 if(UNIX)
 	set(PC_FILE ${CMAKE_BINARY_DIR}/yaml-cpp.pc)
